@@ -1,28 +1,79 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 
-const Texto = ({ style }) => {
-  const [texto, setTexto] = useState('Hello World :)');
-
-  const handlePress = () => {
-    setTexto('Bye Cruel World');
-  };
-
-  return (
-    <Text style={[styles.text, style]} onPress={handlePress}>
-      {texto}
-    </Text>
-  );
-};
+// const width = Dimensions.get('window').width;
 
 export default function App() {
+  const [text, setText] = useState('Welcome Back!');
+
   return (
     <View style={styles.container}>
-      <StatusBar style='auto' />
-      <Texto style={styles.red} />
-      <Texto style={styles.green} />
-      <Texto style={styles.blue} />
+      <ScrollView style={styles.scrollView}>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text>Text: {text}</Text>
+        <Text style={{ textAlign: 'center' }}>Text: {text}</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Insert a text'
+          onChangeText={(t) => setText(t)}
+          value={text}
+        />
+        <TouchableWithoutFeedback
+          style={styles.touchableOpacity}
+          onPress={() => {
+            setText('Pressed change text');
+          }}
+        >
+          <View style={styles.view}>
+            <Text>Accept</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </View>
   );
 }
@@ -30,27 +81,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'stretch',
-    justifyContent: 'space-evenly',
-    // flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  red: {
-    // flex: 1,
-    backgroundColor: '#ff0000',
+  view: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  green: {
-    // flex: 2,
-    backgroundColor: '#00ff00',
+  touchableOpacity: {
+    backgroundColor: '#999',
   },
-  blue: {
-    // flex: 3,
-    backgroundColor: '#0000ff',
+  input: {
+    height: 40,
+    borderBottomColor: '#999',
+    borderBottomWidth: 1,
+    width: '100%',
   },
-  text: {
-    color: '#fff',
-    fontSize: 24,
-    // height: 100,
-    width: '50%',
+  scrollView: {
+    width: Dimensions.get('window').width,
   },
 });
