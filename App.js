@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, FlatList, Text, ActivityIndicator } from 'react-native';
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -17,6 +17,7 @@ export default function App() {
   if (loading) {
     return (
       <View style={styles.center}>
+        <ActivityIndicator size='large' color='#0000ff' />
         <Text>Cargando...</Text>
       </View>
     );
