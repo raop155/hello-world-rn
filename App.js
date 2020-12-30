@@ -1,28 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, SectionList, Text } from 'react-native';
 
 // const width = Dimensions.get('window').width;
+
+const data = [];
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <FlatList
-        data={[
-          { key: '1', name: 'Name 1' },
-          { key: '2', name: 'Name 2' },
-          { key: '3', name: 'Name 3' },
-          { key: '4', name: 'Name 4' },
-          { key: '5', name: 'Name 5' },
-          { key: '6', name: 'Name 6' },
-          { key: '7', name: 'Name 7' },
-          { key: '8', name: 'Name 8' },
-          { key: '9', name: 'Name 9' },
-          { key: '10', name: 'Name 10' },
-          { key: '11', name: 'Name 11' },
-          { key: '12', name: 'Name 12' },
-          { key: '13', name: 'Name 13' },
-          { key: '14', name: 'Name 14' },
-          { key: '15', name: 'Name 15' },
+      <SectionList
+        sections={[
+          {
+            title: 'Group 1',
+            data: [
+              { key: '1', name: 'Name 1' },
+              { key: '2', name: 'Name 2' },
+              { key: '3', name: 'Name 3' },
+              { key: '4', name: 'Name 4' },
+              { key: '5', name: 'Name 5' },
+            ],
+          },
+          {
+            title: 'Group 2',
+            data: [
+              { key: '6', name: 'Name 6' },
+              { key: '7', name: 'Name 7' },
+              { key: '8', name: 'Name 8' },
+              { key: '9', name: 'Name 9' },
+            ],
+          },
+          {
+            title: 'Group 3',
+            data: [
+              { key: '10', name: 'Name 10' },
+              { key: '11', name: 'Name 11' },
+              { key: '12', name: 'Name 12' },
+              { key: '13', name: 'Name 13' },
+              { key: '14', name: 'Name 14' },
+              { key: '15', name: 'Name 15' },
+            ],
+          },
         ]}
         renderItem={({ item }) => {
           return (
@@ -30,6 +47,9 @@ export default function App() {
               {item.name}
             </Text>
           );
+        }}
+        renderSectionHeader={({ section }) => {
+          return <Text style={styles.section}>{section.title}</Text>;
         }}
       />
     </View>
@@ -45,9 +65,14 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     fontSize: 22,
-    // height: 50,
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,
-    // width: '100%',
+  },
+
+  section: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    backgroundColor: '#ddd',
   },
 });
