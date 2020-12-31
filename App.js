@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Modal, Text, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+import * as Location from 'expo-location';
+import Constants from 'expo-constants';
 
 export default function App() {
-  const [modal, setModal] = useState(false);
+  const searchLocation = async () => {
+    const { status } = await Location.requestPermissionsAsync();
+
+    if (status !== 'granted') {
+      return Alert.alert('You do not have the necessary permissions!!');
+    }
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.High,
+    });
+    console.log('location', location);
+  };
+
+  useEffect(() => {
+    searchLocation();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Modal animationType='slide' transparent={true} visible={modal}>
-        <View style={styles.center}>
-          <View style={styles.content}>
-            <Text>Modal here!</Text>
-            <Button title='Close' onPress={() => setModal(!modal)} />
-          </View>
-        </View>
-      </Modal>
-      <Text>Not modal</Text>
-      <Text>Not modal</Text>
-      <Text>Not modal</Text>
-      <Text>Not modal</Text>
-      <Text>Not modal</Text>
-      <Button title='Open' onPress={() => setModal(!modal)} />
+      <Text>Hello</Text>
     </View>
   );
 }
@@ -29,19 +33,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 20,
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  content: {
-    backgroundColor: '#fff',
-    height: '75%',
-    width: '75%',
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
