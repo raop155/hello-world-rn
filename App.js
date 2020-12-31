@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import Constants from 'expo-constants';
 
 export default function App() {
+  const [point, setPoint] = useState({});
   const searchLocation = async () => {
     const { status } = await Location.requestPermissionsAsync();
 
@@ -14,7 +15,7 @@ export default function App() {
     const location = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.High,
     });
-    console.log('location', location);
+    setPoint(location);
   };
 
   useEffect(() => {
@@ -23,7 +24,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} />
+      <MapView style={styles.map}>
+        {point.coords && (
+          <Marker coordinate={point.coords} title='Title' description='Description' />
+        )}
+      </MapView>
     </View>
   );
 }
@@ -36,7 +41,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   map: {
-    flex: 2,
+    flex: 1,
     width: '100%',
   },
 });
