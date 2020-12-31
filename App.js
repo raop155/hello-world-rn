@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
 import Constants from 'expo-constants';
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
+      <MapView style={styles.map} />
     </View>
   );
 }
@@ -33,5 +34,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 20,
+  },
+  map: {
+    flex: 2,
+    width: '100%',
   },
 });
