@@ -1,34 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
-import * as Location from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
-import Constants from 'expo-constants';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import { Camera } from 'expo-camera';
 
 export default function App() {
-  const [point, setPoint] = useState({});
-  const searchLocation = async () => {
-    const { status } = await Location.requestPermissionsAsync();
+  const [permission, setPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
 
-    if (status !== 'granted') {
-      return Alert.alert('You do not have the necessary permissions!!');
-    }
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.High,
-    });
-    setPoint(location);
+  const getPermission = async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+    setPermission(status == 'granted');
   };
 
   useEffect(() => {
-    searchLocation();
+    getPermission();
   }, []);
+
+  if (permission === null) {
+    return (
+      <View>
+        <Text>Waiting for permission</Text>
+      </View>
+    );
+  }
+
+  if (permission === false) {
+    return (
+      <View>
+        <Text>Do not have access to Camera</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map}>
-        {point.coords && (
-          <Marker coordinate={point.coords} title='Title' description='Description' />
-        )}
-      </MapView>
+      <Camera style={styles.camera} type={type}>
+        <Button
+          title='Back'
+          onPress={() => {
+            const { front, back } = Camera.Constants.Type;
+            const newType = type === back ? front : back;
+
+            setType(newType);
+          }}
+        />
+      </Camera>
     </View>
   );
 }
@@ -40,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 20,
   },
-  map: {
+  camera: {
     flex: 1,
     width: '100%',
   },
